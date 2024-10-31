@@ -1,50 +1,43 @@
-# Welcome to your Expo app 👋
+# Expo Router Entry.js Issue Reproduction
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This repository demonstrates the `_lruCache is not a constructor` error occurring in the metro bundle phase of development build.
 
-## Get started
+## Environment
+
+- Expo SDK: 52.0.0-preview.18
+- expo-router: 4.0.0-preview.11
+- expo-dev-client: 5.0.0-preview.5
+- React Native: 0.76.1
+
+## Steps to Reproduce
 
 1. Install dependencies
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Build development client
 
-## Learn more
+3. Start the development server
 
-To learn more about developing your project with Expo, look at the following resources:
+4. Open the app on your device
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Expected Behavior
 
-## Join the community
+The app should bundle without issues
 
-Join our community of developers creating universal apps.
+## Actual Behavior
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Metro bundling fails with the following error:
+
+```
+iOS Bundling failed 7ms
+node_modules\expo-router\entry.js: [BABEL] node_modules\expo-router\entry.js: *lruCache is not a constructor
+```
+
+## Additional Information
+
+- This issue occurs during the Metro bundling phase
+- The development build itself completes successfully
+- This seems to be a babel configuration issue specific to expo-router's entry point
